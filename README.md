@@ -1,7 +1,7 @@
 # EquityX
 Scenario: You have been hired to create a cross platform application EquityX, that allows users to simulate the trading of various equities such as stocks and crypto currencies.
 
-<a href="https://app.milanote.com/1QPO9U1cH3lm5S?p=94AaYs0mzRj">View Project Moodboard</a>
+<a target="#" href="https://app.milanote.com/1QPO9U1cH3lm5S?p=94AaYs0mzRj">View Project Moodboard</a>
 
 <h2>Features</h2>
 <ul><li>Add and withdraw funds to and from the application. – Funds should be in USD and
