@@ -6,12 +6,12 @@ Scenario: You have been hired to create a cross platform application EquityX, th
 are used to buy assets (stocks and cryptocurrencies). I can only withdraw <= the total
 USD cash balance within the application. Assets are not automatically sold if I
 attempt to withdraw >= my current USD cash balance.</li><li>
-• Simulate the purchase and sale of equity/assets (also known as stocks or
+Simulate the purchase and sale of equity/assets (also known as stocks or
 cryptocurrencies) from a variety of markets (FTSE, Dow, DASDAQ, et cetera).</li><li>
-• Display live market information on assets (stock or cryptocurrencies).</li><li>
-• Display the total value of all assets (including available funds) within my
+Display live market information on assets (stock or cryptocurrencies).</li><li>
+Display the total value of all assets (including available funds) within my
 portfolio(s).</li><li>
-• Display summary information on my investments. This may be individual assets
+Display summary information on my investments. This may be individual assets
 such as Microsoft stocks, all assets of a particular type (crypto currencies or all
 equity). For example, I may have purchased 10 units of Microsoft stock each month
 for three months. I should see the cost of each individual purchase, the difference
