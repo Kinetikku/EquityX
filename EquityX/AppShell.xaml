@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Shell
+    x:Class="EquityX.AppShell"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:local="clr-namespace:EquityX"
+    xmlns:pages="clr-namespace:EquityX.Pages"
+    Shell.FlyoutBehavior="Flyout"
+    BackgroundColor="{StaticResource MainBackground}"
+    FlyoutIcon="menu_icon.png"
+    FlyoutHeight="500"
+    FlyoutWidth="200"
+    FlyoutBackgroundColor="{StaticResource MainBackground}">
+
+    <Shell.TitleView>
+        <VerticalStackLayout>
+            <Label TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoLight" FontSize="32" Text="EQUITYX"></Label>
+        </VerticalStackLayout>
+    </Shell.TitleView>
+
+    <ShellContent
+    Title="Tester"
+    Icon="stock_icon.png"
+    ContentTemplate="{DataTemplate pages:Landing}"
+        FlyoutItemIsVisible="True"
+    ></ShellContent>
+    
+    <FlyoutItem
+        Title="Dash"
+        Icon="dash_icon.png">
+        <ShellContent
+            Title="Tester"
+            Icon="stock_icon.png"
+            ContentTemplate="{DataTemplate pages:Dash}"
+            ></ShellContent>
+    </FlyoutItem>
+    <FlyoutItem
+    Title="Stocks"
+    Icon="stock_icon.png">
+        <ShellContent
+        Title="Tester"
+        Icon="stock_icon.png"
+        ContentTemplate="{DataTemplate pages:Stocks}"
+        ></ShellContent>
+    </FlyoutItem>
+    <FlyoutItem
+    Title="Wallet"
+    Icon="wallet_icon.png">
+        <ShellContent
+        Title="Tester"
+        Icon="stock_icon.png"
+        ContentTemplate="{DataTemplate pages:Wallet}"
+        ></ShellContent>
+    </FlyoutItem>
+</Shell>
