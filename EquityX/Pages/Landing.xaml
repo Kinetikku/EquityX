@@ -3,80 +3,177 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="EquityX.Pages.Landing"
              Title="Landing">
-    <VerticalStackLayout>
-        <!-- Total Asset Value Component -->
-        <Border Background="{StaticResource CardBackground}" HeightRequest="150" WidthRequest="360" Margin="0,20,0,0">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20" />
-            </Border.StrokeShape>
-            <VerticalStackLayout VerticalOptions="Center">
-                <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoBold" FontSize="48" Text="$789.59" Margin="0,15,0,10"/>
-                <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoLight" FontSize="14" Text="TOTAL ASSET VALUE"/>
-            </VerticalStackLayout>
-        </Border>
-        <!-- Add Money, Sell Assets, Withdraw Component -->
-        <Border Background="{StaticResource CardBackground}" HeightRequest="100" WidthRequest="360" Margin="0,20,0,0">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20" />
-            </Border.StrokeShape>
-            <!-- Button Organising stack -->
-            <VerticalStackLayout HorizontalOptions="Center">
-                <HorizontalStackLayout VerticalOptions="Center" Margin="0, 8, 0, 0">
-                    <!-- Add Money Button -->
-                    <Border Background="{StaticResource White}" HeightRequest="40" WidthRequest="100" Margin="0,20,0,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10" />
-                        </Border.StrokeShape>
-                        <Label TextColor="{StaticResource MainBackground}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoRegular" FontSize="14" Text="Add Money"/>
-                    </Border>
-                    <!-- Sell Assets Button -->
-                    <Border Background="{StaticResource White}" HeightRequest="40" WidthRequest="100" Margin="10,20,10,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10" />
-                        </Border.StrokeShape>
-                        <Label TextColor="{StaticResource MainBackground}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoRegular" FontSize="14" Text="Sell Assets"/>
-                    </Border>
-                    <!-- Withdraw Button -->
-                    <Border Background="{StaticResource White}" HeightRequest="40" WidthRequest="100" Margin="0,20,0,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="10" />
-                        </Border.StrokeShape>
-                        <Label TextColor="{StaticResource MainBackground}" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoRegular" FontSize="14" Text="Withdraw"/>
-                    </Border>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </Border>
-        <!-- Asset Breakdown Component -->
-        <Border Background="{StaticResource CardBackground}" HeightRequest="350" WidthRequest="360" Margin="0,20,0,0">
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="20" />
-            </Border.StrokeShape>
-            <VerticalStackLayout HorizontalOptions="Center">
-                <Label Text="Asset Breakdown" FontFamily="RobotoMedium" FontSize="18"  Margin="0,20,180,0" />
-                <!-- Asset Info Row -->
-                <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
-                    <!-- Image Container & Image -->
-                    <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
-                        <Border.StrokeShape>
-                            <RoundRectangle CornerRadius="20" />
-                        </Border.StrokeShape>
-                        <Image Source="CustomIcons/google_icon.png"/>
-                    </Border>
-                    <!-- Stock Name & Total Shares -->
-                    <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
-                        <Label Text="Google Inc" FontFamily="RobotoMedium" FontSize="18" />
-                        <Label Text="22 Shares - Total: $3235.53" />
-                    </VerticalStackLayout>
-                    <!-- Stock Cost % Percentage Increase -->
-                    <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
-                        <Label HorizontalOptions="End" Text="$401.76" FontFamily="RobotoMedium" FontSize="18" />
-                        <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
-                            <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
-                            <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+    <ScrollView>
+        <VerticalStackLayout>
+            <!-- Total Asset Value Component -->
+            <Border Background="{StaticResource CardBackground}" HeightRequest="150" WidthRequest="360" Margin="0,20,0,0">
+                <VerticalStackLayout VerticalOptions="Center">
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoBold" FontSize="48" Text="$789.59" Margin="0,15,0,10"/>
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoLight" FontSize="14" Text="TOTAL ASSET VALUE"/>
+                </VerticalStackLayout>
+            </Border>
+            <!-- Add Money, Sell Assets, Withdraw Component -->
+            <Border Background="{StaticResource CardBackground}" HeightRequest="100" WidthRequest="360" Margin="0,20,0,0">
+                <!-- Button Organising stack -->
+                <VerticalStackLayout HorizontalOptions="Center">
+                    <HorizontalStackLayout Margin="0, 30, 0, 0">
+                        <!-- Add Money Button -->
+                        <Button Text="Add Money" VerticalOptions="Center" HorizontalOptions="Center" Clicked="Add_Money_Clicked" />
+                        <!-- Sell Assets Button -->
+                        <Button Text="Sell Assets" VerticalOptions="Center" HorizontalOptions="Center" Clicked="Sell_Assets_Clicked" />
+                        <!-- Withdraw Button -->
+                        <Button Text="Withdraw" VerticalOptions="Center" HorizontalOptions="Center" Clicked="Withdraw_Clicked" />
+                    </HorizontalStackLayout>
+                </VerticalStackLayout>
+            </Border>
+            <!-- Asset Breakdown Component -->
+            <Border Background="{StaticResource CardBackground}" HeightRequest="350" WidthRequest="360" Margin="0,20,0,0">
+                <ScrollView>
+                    <VerticalStackLayout HorizontalOptions="Center">
+                        <Label Text="Asset Breakdown" FontFamily="RobotoMedium" FontSize="18"  Margin="0,20,180,0" />
+                        <!-- Asset Info Row -->
+                        <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
+                            <!-- Image Container & Image -->
+                            <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
+                                <Image Source="CustomIcons/google_icon.png"/>
+                            </Border>
+                            <!-- Stock Name & Total Shares -->
+                            <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
+                                <Label Text="Google Inc" FontFamily="RobotoMedium" FontSize="18" />
+                                <Label Text="22 Shares - Total: $3235.53" />
+                            </VerticalStackLayout>
+                            <!-- Stock Cost % Percentage Increase -->
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
+                                <Label HorizontalOptions="End" Text="$401.76" FontFamily="RobotoMedium" FontSize="18" />
+                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
+                                    <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
+                                    <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <!-- Asset Info Row -->
+                        <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
+                            <!-- Image Container & Image -->
+                            <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
+                                <Image Source="CustomIcons/nvidia_icon.png"/>
+                            </Border>
+                            <!-- Stock Name & Total Shares -->
+                            <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
+                                <Label Text="NVidia Inc" FontFamily="RobotoMedium" FontSize="18" />
+                                <Label Text="14 Shares - Total: $2161.53" />
+                            </VerticalStackLayout>
+                            <!-- Stock Cost % Percentage Increase -->
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
+                                <Label HorizontalOptions="End" Text="$324.86" FontFamily="RobotoMedium" FontSize="18" />
+                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
+                                    <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
+                                    <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <!-- Asset Info Row -->
+                        <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
+                            <!-- Image Container & Image -->
+                            <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
+                                <Image Source="CustomIcons/apple_icon.png"/>
+                            </Border>
+                            <!-- Stock Name & Total Shares -->
+                            <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
+                                <Label Text="Apple Inc" FontFamily="RobotoMedium" FontSize="18" />
+                                <Label Text="2 Shares - Total: $135.43" />
+                            </VerticalStackLayout>
+                            <!-- Stock Cost % Percentage Increase -->
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
+                                <Label HorizontalOptions="End" Text="$270.86" FontFamily="RobotoMedium" FontSize="18" />
+                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
+                                    <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
+                                    <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <!-- Asset Info Row -->
+                        <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
+                            <!-- Image Container & Image -->
+                            <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
+                                <Image Source="CustomIcons/apple_icon.png"/>
+                            </Border>
+                            <!-- Stock Name & Total Shares -->
+                            <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
+                                <Label Text="Apple Inc" FontFamily="RobotoMedium" FontSize="18" />
+                                <Label Text="2 Shares - Total: $135.43" />
+                            </VerticalStackLayout>
+                            <!-- Stock Cost % Percentage Increase -->
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
+                                <Label HorizontalOptions="End" Text="$270.86" FontFamily="RobotoMedium" FontSize="18" />
+                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
+                                    <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
+                                    <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <!-- Asset Info Row -->
+                        <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
+                            <!-- Image Container & Image -->
+                            <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
+                                <Image Source="CustomIcons/apple_icon.png"/>
+                            </Border>
+                            <!-- Stock Name & Total Shares -->
+                            <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
+                                <Label Text="Apple Inc" FontFamily="RobotoMedium" FontSize="18" />
+                                <Label Text="2 Shares - Total: $135.43" />
+                            </VerticalStackLayout>
+                            <!-- Stock Cost % Percentage Increase -->
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
+                                <Label HorizontalOptions="End" Text="$270.86" FontFamily="RobotoMedium" FontSize="18" />
+                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
+                                    <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
+                                    <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <!-- Asset Info Row -->
+                        <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
+                            <!-- Image Container & Image -->
+                            <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
+                                <Image Source="CustomIcons/apple_icon.png"/>
+                            </Border>
+                            <!-- Stock Name & Total Shares -->
+                            <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
+                                <Label Text="Apple Inc" FontFamily="RobotoMedium" FontSize="18" />
+                                <Label Text="2 Shares - Total: $135.43" />
+                            </VerticalStackLayout>
+                            <!-- Stock Cost % Percentage Increase -->
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
+                                <Label HorizontalOptions="End" Text="$270.86" FontFamily="RobotoMedium" FontSize="18" />
+                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
+                                    <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
+                                    <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
+                        </HorizontalStackLayout>
+                        <!-- Asset Info Row -->
+                        <HorizontalStackLayout HorizontalOptions="Start" WidthRequest="320">
+                            <!-- Image Container & Image -->
+                            <Border Background="White" HeightRequest="40" WidthRequest="40" Margin="0, 20,0,0">
+                                <Image Source="CustomIcons/apple_icon.png"/>
+                            </Border>
+                            <!-- Stock Name & Total Shares -->
+                            <VerticalStackLayout VerticalOptions="End" Margin="5,0,0,1" Padding="0,0,30,0">
+                                <Label Text="Apple Inc" FontFamily="RobotoMedium" FontSize="18" />
+                                <Label Text="2 Shares - Total: $135.43" />
+                            </VerticalStackLayout>
+                            <!-- Stock Cost % Percentage Increase -->
+                            <VerticalStackLayout HorizontalOptions="End" VerticalOptions="End" Margin="5,0,0,3">
+                                <Label HorizontalOptions="End" Text="$270.86" FontFamily="RobotoMedium" FontSize="18" />
+                                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Start" MaximumHeightRequest="15">
+                                    <Polygon Points="0 13,8 4,16 13" Fill="{StaticResource IncreaseArrow}" StrokeThickness="2"/>
+                                    <Label HorizontalOptions="Start" VerticalOptions="End" Text="36.4%" FontFamily="RobotoLight" FontSize="12" Margin="2,0,0,0"/>
+                                </HorizontalStackLayout>
+                            </VerticalStackLayout>
                         </HorizontalStackLayout>
                     </VerticalStackLayout>
-                </HorizontalStackLayout>
-            </VerticalStackLayout>
-        </Border>
-    </VerticalStackLayout>
+                </ScrollView>
+            </Border>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
