@@ -5,51 +5,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:EquityX"
     xmlns:pages="clr-namespace:EquityX.Pages"
-    Shell.FlyoutBehavior="Flyout"
-    BackgroundColor="{StaticResource MainBackground}"
-    FlyoutIcon="menu_icon.png"
-    FlyoutHeight="500"
-    FlyoutWidth="200"
-    FlyoutBackgroundColor="{StaticResource MainBackground}">
+    Shell.FlyoutBehavior="Disabled"
+    BackgroundColor="{StaticResource MainBackground}">
 
+    <!-- I am using this to disable the navbar from having any text -->
     <Shell.TitleView>
         <VerticalStackLayout>
-            <Label TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoLight" FontSize="32" Text="EQUITYX"></Label>
         </VerticalStackLayout>
     </Shell.TitleView>
 
-    <ShellContent
-    Title="Tester"
-    Icon="stock_icon.png"
-    ContentTemplate="{DataTemplate pages:Landing}"
-        FlyoutItemIsVisible="True"
-    ></ShellContent>
-    
-    <FlyoutItem
-        Title="Dash"
-        Icon="dash_icon.png">
+    <!-- This section then directs the shell on where to go -->
+    <TabBar>
         <ShellContent
-            Title="Tester"
-            Icon="stock_icon.png"
-            ContentTemplate="{DataTemplate pages:Dash}"
-            ></ShellContent>
-    </FlyoutItem>
-    <FlyoutItem
-    Title="Stocks"
-    Icon="stock_icon.png">
-        <ShellContent
-        Title="Tester"
-        Icon="stock_icon.png"
-        ContentTemplate="{DataTemplate pages:Stocks}"
-        ></ShellContent>
-    </FlyoutItem>
-    <FlyoutItem
-    Title="Wallet"
-    Icon="wallet_icon.png">
-        <ShellContent
-        Title="Tester"
-        Icon="stock_icon.png"
-        ContentTemplate="{DataTemplate pages:Wallet}"
-        ></ShellContent>
-    </FlyoutItem>
+            Title="Main"
+            ContentTemplate="{DataTemplate pages:Landing}" />
+    </TabBar>
 </Shell>
