@@ -4,9 +4,12 @@
              x:Class="EquityX.Pages.AddMoney"
              Title="AddMoney">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to Add Money Page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <!-- Total Cash Value Component -->
+        <Border HeightRequest="150" WidthRequest="360">
+            <VerticalStackLayout VerticalOptions="Center">
+                <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoBold" FontSize="48" Text="$439.59" Margin="0,15,0,10"/>
+                <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoLight" FontSize="14" Text="TOTAL CASH VALUE"/>
+            </VerticalStackLayout>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>
