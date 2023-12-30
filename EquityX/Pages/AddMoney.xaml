@@ -7,9 +7,36 @@
         <!-- Total Cash Value Component -->
         <Border HeightRequest="150" WidthRequest="360">
             <VerticalStackLayout VerticalOptions="Center">
-                <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoBold" FontSize="48" Text="$439.59" Margin="0,15,0,10"/>
-                <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoLight" FontSize="14" Text="TOTAL CASH VALUE"/>
+                <Label HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="$439.59" Margin="0,15,0,10"/>
+                <Label HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource SubLabel}" Text="TOTAL CASH VALUE"/>
             </VerticalStackLayout>
+        </Border>
+        <!-- Add Cash Component -->
+        <Border HeightRequest="150" WidthRequest="360">
+            <VerticalStackLayout VerticalOptions="Center">
+                <Ellipse WidthRequest="180" HeightRequest="180" Fill="#3A5066" HorizontalOptions="Center" Margin="0, -80, 0, 40"/>
+                <Label HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="$20" Margin="0,-130,0,60"/>
+                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="0, -45, 0 , 40">
+                    <Border Style="{StaticResource AddFundsBorder}">
+                        <Label Style="{StaticResource MediumLabelBlack}" Text="$5"/>
+                    </Border>
+                    <Border Style="{StaticResource AddFundsBorder}">
+                        <Label Style="{StaticResource MediumLabelBlack}" Text="$10"/>
+                    </Border>
+                    <Border Style="{StaticResource AddFundsBorder}">
+                        <Label Style="{StaticResource MediumLabelBlack}" Text="$15"/>
+                    </Border>
+                    <Border Style="{StaticResource AddFundsBorder}">
+                        <Label Style="{StaticResource MediumLabelBlack}" Text="$20"/>
+                    </Border>
+                    <Border Style="{StaticResource AddFundsBorder}">
+                        <Label Style="{StaticResource MediumLabelBlack}" Text="$30"/>
+                    </Border>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+        </Border>
+        <Border Style="{StaticResource ConfirmBorder}">
+            <Label Style="{StaticResource MediumLabelBlack}" Text="Confirm"/>
         </Border>
     </VerticalStackLayout>
 </ContentPage>
