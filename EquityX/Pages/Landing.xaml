@@ -8,8 +8,8 @@
             <!-- Total Asset Value Component -->
             <Border HeightRequest="150" WidthRequest="360">
                 <VerticalStackLayout VerticalOptions="Center">
-                    <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoBold" FontSize="48" Text="$789.59" Margin="0,15,0,10"/>
-                    <Label HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoLight" FontSize="14" Text="TOTAL ASSET VALUE"/>
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="$789.59" Margin="0,15,0,10" Style="{StaticResource HeadingLabel}" />
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TOTAL ASSET VALUE" Style="{StaticResource SubLabel}" />
                 </VerticalStackLayout>
             </Border>
             <!-- Add Money, Sell Assets, Withdraw Component -->
