@@ -1,0 +1,30 @@
+[
+    {
+        "LogoCode": "123456",
+        "CompanyName": "TechNova",
+        "Shares": 150,
+        "SharePrice": 32.45,
+        "GainPercentage": 5.2
+    },
+    {
+        "LogoCode": "234567",
+        "CompanyName": "QuantumCore",
+        "Shares": 200,
+        "SharePrice": 47.30,
+        "GainPercentage": 3.8
+    },
+    {
+        "LogoCode": "345678",
+        "CompanyName": "NeuralNet Solutions",
+        "Shares": 120,
+        "SharePrice": 29.15,
+        "GainPercentage": 6.5
+    },
+    {
+        "LogoCode": "456789",
+        "CompanyName": "Orbitrix",
+        "Shares": 180,
+        "SharePrice": 53.75,
+        "GainPercentage": 4.7
+    }
+]
