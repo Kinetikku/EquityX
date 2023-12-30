@@ -9,6 +9,7 @@
     <Color x:Key="CardBackground">#2E3E50</Color>
     <Color x:Key="IconOrange">#E17D29</Color>
     <Color x:Key="MainBackground">#2E3E50</Color>
+    <Color x:Key="MainForeground">#3A5066</Color>
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">White</Color>
 
