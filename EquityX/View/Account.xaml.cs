@@ -112,6 +112,7 @@ public partial class Account : ContentPage
 
         // Row 4 - Address Line 1
         var address1Label = new Label { Text = "Address Line 1:" };
+        address1Label.FontFamily = "RobotoBold";
         Grid.SetColumn(address1Label, 0);
         Grid.SetRow(address1Label, 4);
         accountDetailsGrid.Children.Add(address1Label);

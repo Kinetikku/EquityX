@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EquityX.Pages.SignUp"
+             Title="SignUp">
+    <VerticalStackLayout HorizontalOptions="Center" Margin="0, 20, 0, 0" WidthRequest="317">
+        <Label Text="EQUITYX" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource LoginLabel}"/>
+        <Grid ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Text="Banking made simple" VerticalOptions="Center" Margin="3, -13, 0,0" Style="{StaticResource LoginLabelSub}" />
+
+            <BoxView Grid.Column="1" HeightRequest="1" BackgroundColor="White" VerticalOptions="Center" />
+        </Grid>
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin=" 0, 80, 0, 0">
+            <Border Style="{StaticResource InputBorder}" Margin="0, 0, 3, 8">
+                <Entry Style="{StaticResource EntryHalfs}"  x:Name="FirstName" Text="{Binding FirstName, Mode=TwoWay}" Placeholder="First Name" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
+            </Border>
+            <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+                <Entry Style="{StaticResource EntryHalfs}"  x:Name="LastName" Text="{Binding LastName, Mode=TwoWay}" Placeholder="Last Name" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
+            </Border>
+        </HorizontalStackLayout>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="Email" Text="{Binding Email, Mode=TwoWay}" Placeholder="Email" MaxLength="40" Keyboard="Email" ReturnType="Next"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}" x:Name="Password" Text="{Binding Password, Mode=TwoWay}" Placeholder="Password" MaxLength="40" IsPassword="True" ReturnType="Next" Keyboard="Plain"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="City" Text="{Binding City, Mode=TwoWay}" Placeholder="City" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="Address1" Text="{Binding Address1, Mode=TwoWay}" Placeholder="Address Line 1" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="Address2" Text="{Binding Address2, Mode=TwoWay}" Placeholder="Address Line 2" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="County" Text="{Binding County, Mode=TwoWay}" Placeholder="County" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="Country" Text="{Binding Country, Mode=TwoWay}" Placeholder="Country" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="Mobile" Text="{Binding Mobile, Mode=TwoWay}" Placeholder="Mobile" MaxLength="40" Keyboard="Plain"/>
+        </Border>
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Border Style="{StaticResource HalfBorder}" Margin="0, 0, 4, 0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GoToLogin"/>
+                </Border.GestureRecognizers>
+                <Label Text="Confirm" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+            <Border Style="{StaticResource HalfBorder}" Margin="4, 0, 0, 0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GoBack"/>
+                </Border.GestureRecognizers>
+                <Label Text="Back To Login" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+        </HorizontalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

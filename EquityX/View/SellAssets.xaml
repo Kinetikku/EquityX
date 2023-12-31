@@ -4,7 +4,7 @@
              x:Class="EquityX.Pages.SellAssets"
              Title="SellAssets">
     <VerticalStackLayout>
-        <Border WidthRequest="360" HeightRequest="600">
+        <Border WidthRequest="360" HeightRequest="650">
             <VerticalStackLayout>
                 <Label Style="{StaticResource MediumLabelWhite}" Text="Sell" HorizontalOptions="Start" VerticalOptions="Start" Margin="15,15,0,0"/>
                 <HorizontalStackLayout HorizontalOptions="Center">
@@ -12,24 +12,25 @@
                         <Border Style="{StaticResource CircleBorder}" Margin="0,0,0,0">
                             <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                                 <!-- Add the stock image here for automation -->
-                                <Label Style="{StaticResource MediumLabelWhite}" Text="Image Here"/>
+                                <Label x:Name="SellStockLogo" Style="{StaticResource MediumLabelWhite}" FontSize="12" Text="Select A Stock"/>
                                 <Label x:Name="ShareStockAmount" Style="{StaticResource MediumLabelWhite}" Text="0 Shares"/>
                             </VerticalStackLayout>
                         </Border>
                     </VerticalStackLayout>
                     <Image Source="sell_arrow.png" Aspect="AspectFit" WidthRequest="40" Margin="15, 0, 15, 0"/>
                     <Border Style="{StaticResource CircleBorder}" Margin="0,0,10,0">
-                        <Label x:Name="ShareSellAmount" Style="{StaticResource MediumLabelWhite}" Text="$14,046"/>
+                        <Label x:Name="ShareSellAmount" Style="{StaticResource MediumLabelWhite}" Text="$0.00"/>
                     </Border>
                 </HorizontalStackLayout>
                 
-                <Slider x:Name="SellSlider" Style="{StaticResource SellStocksSlider}" Maximum="300" ValueChanged="OnSliderChange" Margin="0, 10, 0, 0" />
+                <Slider x:Name="SellSlider" Style="{StaticResource SellStocksSlider}" IsEnabled="False" ValueChanged="OnSliderChange" Margin="0, 10, 0, 0" />
 
                 <ContentView x:Name="calculatorPlaceholder" Margin="0, 20, 0, 0" HorizontalOptions="Center" VerticalOptions="Center"/>
-                
-                <Button Style="{StaticResource ConfirmButton}" Margin=" 0, 20, 0, 0"/>
 
-                <ContentView x:Name="SellSection" />
+                <Button x:Name="ConfirmButton" Style="{StaticResource ConfirmButton}" Margin=" 0, 20, 0, 0" Clicked="ConfirmButtonClicked"/>
+
+                <ContentView x:Name="SellSection" WidthRequest="340"/>
+                
             </VerticalStackLayout>
         </Border>
     </VerticalStackLayout>

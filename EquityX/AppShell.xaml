@@ -18,6 +18,7 @@
     <TabBar>
         <ShellContent
             Title="Main"
-            ContentTemplate="{DataTemplate pages:Landing}" />
+            ContentTemplate="{DataTemplate pages:Login}"
+            />
     </TabBar>
 </Shell>

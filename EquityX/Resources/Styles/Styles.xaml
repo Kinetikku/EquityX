@@ -4,11 +4,50 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
+    <!-- Entry Styling-->
+    <Style x:Key="EntryForms" TargetType="Entry">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+        <Setter Property="PlaceholderColor" Value="Black"/>
+        <Setter Property="Shadow" Value="False" />
+        <Setter Property="HeightRequest" Value="40"/>
+        <Setter Property="Margin" Value="5, 2, 0, 0"/>
+        <Setter Property="FontFamily" Value="RobotoRegular"/>
+    </Style>
+
+    <Style x:Key="EntryHalfs" TargetType="Entry">
+        <Setter Property="TextColor" Value="Black"/>
+        <Setter Property="PlaceholderColor" Value="Black"/>
+        <Setter Property="Shadow" Value="False" />
+        <Setter Property="HeightRequest" Value="40"/>
+        <Setter Property="Margin" Value="5, 2, 0, 0"/>
+        <Setter Property="FontFamily" Value="RobotoRegular"/>
+        <Setter Property="WidthRequest" Value="150" />
+        <Setter Property="FontFamily" Value="RobotoRegular"/>
+    </Style>
+
+
     <!-- Label Styling -->
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="White" />
     </Style>
-    
+
+    <Style x:Key="LoginLabel" TargetType="Label">
+        <Setter Property="FontFamily" Value="RobotoBold" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="FontSize" Value="78"/>
+    </Style>
+
+    <Style x:Key="LoginLabelSub" TargetType="Label">
+        <Setter Property="FontFamily" Value="RobotoLight" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="FontSize" Value="16"/>
+    </Style>
+
     <Style x:Key="BoldLabelBlack" TargetType="Label">
         <Setter Property="FontFamily" Value="RobotoBold" />
         <Setter Property="TextColor" Value="Black" />
@@ -69,6 +108,29 @@
         </Setter>
     </Style>
 
+    <Style x:Key="HalfBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="WidthRequest" Value="150"/>
+        <Setter Property="HorizontalOptions" Value="Center"/>
+        <Setter Property="VerticalOptions" Value="Center"/>
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="15"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InputBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="White"/>
+        <Setter Property="HeightRequest" Value="30" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="15"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="AddFundsBorder" TargetType="Border">
         <Setter Property="BackgroundColor" Value="White"/>
         <Setter Property="WidthRequest" Value="50" />
@@ -110,6 +172,16 @@
         <Setter Property="CornerRadius" Value="12" />
         <Setter Property="TextColor" Value="Black" />
         <Setter Property="Margin" Value="5,0,5,0" />
+    </Style>
+
+    <Style x:Key="InputButton" TargetType="Button">
+        <Setter Property="BackgroundColor" Value="White" />
+        <Setter Property="CornerRadius" Value="13" />
+        <Setter Property="TextColor" Value="Black" />
+        <Setter Property="HeightRequest" Value="26" />
+        <Setter Property="WidthRequest" Value="150" />
+        <Setter Property="FontSize" Value="10" />
+        <Setter Property="FontFamily" Value="RobotoRegular"/>
     </Style>
 
     <Style x:Key="ConfirmButton" TargetType="Button">

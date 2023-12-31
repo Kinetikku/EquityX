@@ -1,4 +1,6 @@
-﻿namespace EquityX
+﻿using EquityX.Pages;
+
+namespace EquityX
 {
     public partial class App : Application
     {

@@ -7,7 +7,7 @@
         <!-- Total Cash Value Component -->
         <Border HeightRequest="150" WidthRequest="360">
             <VerticalStackLayout VerticalOptions="Center">
-                <Label HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="$439.59" Margin="0,15,0,10"/>
+                <Label x:Name="TotalMoney" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="{Binding CurrentBalance}" Margin="0,15,0,10"/>
                 <Label HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource SubLabel}" Text="TOTAL CASH VALUE"/>
             </VerticalStackLayout>
         </Border>

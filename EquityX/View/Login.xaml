@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EquityX.Pages.Login"
+             Title="Login"
+             BackgroundColor="{StaticResource MainForeground}"
+             NavigationPage.HasNavigationBar="False"
+             >
+    <VerticalStackLayout HorizontalOptions="Center" Margin="0, 20, 0, 0" WidthRequest="317">
+        <Label Text="EQUITYX" VerticalOptions="Center" HorizontalOptions="Center" Style="{StaticResource LoginLabel}"/>
+        <Grid ColumnSpacing="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="0" Text="Banking made simple" VerticalOptions="Center" Margin="3, -13, 0,0" Style="{StaticResource LoginLabelSub}" />
+
+            <BoxView Grid.Column="1" HeightRequest="1" BackgroundColor="White" VerticalOptions="Center" />
+        </Grid>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 80, 0, 8">
+            <Entry Style="{StaticResource EntryForms}"  x:Name="Email" Text="{Binding EmailLogin}" Placeholder="Email" MaxLength="40" Keyboard="Email" ReturnType="Next"/>
+        </Border>
+        <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Entry Style="{StaticResource EntryForms}" x:Name="Password" Text="{Binding PasswordLogin}" Placeholder="Password" MaxLength="40" IsPassword="True" Keyboard="Plain"/>
+        </Border>
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+            <Border Style="{StaticResource HalfBorder}" Margin="0, 0, 4, 0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GoToMain"/>
+                </Border.GestureRecognizers>
+                <Label Text="Login" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+            <Border Style="{StaticResource HalfBorder}" Margin="4, 0, 0, 0">
+                <Border.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="GoToSignUp"/>
+                </Border.GestureRecognizers>
+                <Label Text="Sign Up" TextColor="Black" VerticalOptions="Center" HorizontalOptions="Center"/>
+            </Border>
+        </HorizontalStackLayout>
+        <Label x:Name="Error" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RobotoRegular"/>
+    </VerticalStackLayout>
+</ContentPage>
