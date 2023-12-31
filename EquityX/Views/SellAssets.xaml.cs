@@ -1,6 +1,5 @@
-using EquityX.Model;
+using EquityX.Models;
 using EquityX.ViewModel;
-using Microsoft.Maui.Controls;
 using System.Reflection;
 using System.Text.Json;
 
@@ -9,7 +8,9 @@ namespace EquityX.Pages;
 public partial class SellAssets : ContentPage
 {
     private string runningNumberInput = "";
+    private int stockAmountSold;
     private double stockCost;
+
     private List<StockData> stockDataList;
     private StockData selectedStockData;
     private UserDataViewModel viewModel;
@@ -42,15 +43,15 @@ public partial class SellAssets : ContentPage
         }
 
         // Add buttons
-        AddButton(grid, "7", 0, 0);
-        AddButton(grid, "8", 0, 1);
-        AddButton(grid, "9", 0, 2);
+        AddButton(grid, "1", 0, 0);
+        AddButton(grid, "2", 0, 1);
+        AddButton(grid, "3", 0, 2);
         AddButton(grid, "4", 1, 0);
         AddButton(grid, "5", 1, 1);
         AddButton(grid, "6", 1, 2);
-        AddButton(grid, "1", 2, 0);
-        AddButton(grid, "2", 2, 1);
-        AddButton(grid, "3", 2, 2);
+        AddButton(grid, "7", 2, 0);
+        AddButton(grid, "8", 2, 1);
+        AddButton(grid, "9", 2, 2);
         AddButton(grid, "Clear", 3, 0);
         AddButton(grid, "0", 3, 1);
         AddButton(grid, "Del", 3, 2);
@@ -76,6 +77,10 @@ public partial class SellAssets : ContentPage
     {
         if (stockDataList != null)
         {
+            // Create a vertical scroll for the rows
+            var scrollLayout = new ScrollView();
+            scrollLayout.Orientation = ScrollOrientation.Vertical;
+
             // Create a new StackLayout
             var stackLayout = new VerticalStackLayout();
 
@@ -132,9 +137,10 @@ public partial class SellAssets : ContentPage
                     FontSize = 10
                 };
 
+                double total = stockItem.Shares * stockItem.SharePrice;
                 var companyTotalLabel = new Label
                 {
-                    Text = $"Total: ${stockItem.Shares * stockItem.SharePrice}",
+                    Text = $"Total: {Math.Round(total, 2).ToString("C")}",
                     TextColor = Colors.White,
                     FontFamily = "RobotoRegular",
                     FontSize = 10
@@ -143,6 +149,7 @@ public partial class SellAssets : ContentPage
                 verticalStackCompanyName.Children.Add(companyNameLabel);
                 verticalStackCompanyName.Children.Add(companySharesLabel);
                 verticalStackCompanyName.Children.Add(companyTotalLabel);
+
                 group1.Children.Add(verticalStackCompanyName);
                 horizontalStackRow.Children.Add(group1);
                 // Group 2 will store the sell button and the share info
@@ -156,7 +163,7 @@ public partial class SellAssets : ContentPage
 
                 var companyStockPriceLabel = new Label
                 {
-                    Text = $"{stockItem.SharePrice}",
+                    Text = $"{Math.Round(stockItem.SharePrice, 2).ToString("C")}",
                     TextColor = Colors.White
                 };
 
@@ -168,36 +175,48 @@ public partial class SellAssets : ContentPage
 
                 verticalStackCompanyDetails.Children.Add(companyStockPriceLabel);
                 verticalStackCompanyDetails.Children.Add(companyGainLabel);
+
                 group2.Children.Add(verticalStackCompanyDetails);
                 // Create a button to sell
-                var sellButton = new Button
+                var sellButton = new Border
                 {
-                    Text = "Sell",
                     HeightRequest = 20,
                     WidthRequest = 50,
                     BackgroundColor = Colors.White,
-                    TextColor = Colors.Black,
-                    FontFamily = "RobotoBold",
-                    FontSize = 14,
-                    CommandParameter = stockItem
                 };
 
-                sellButton.Clicked += SellButtonClicked;
+                var sellLabel = new Label
+                {
+                    Text = "Sell",
+                    TextColor = Colors.Black,
+                    FontFamily = "RobotoRegular",
+                    FontSize = 12,
+                    HorizontalOptions = LayoutOptions.Center,
+                    VerticalOptions = LayoutOptions.Center
+                };
 
-                // Add the label to the StackLayout
+                sellButton.BindingContext = stockItem;
+
+                // Create the TapGestureRecognizer
+                var tapGestureRecognizer = new TapGestureRecognizer();
+                tapGestureRecognizer.Tapped += SellButtonClicked;
+                sellButton.GestureRecognizers.Add(tapGestureRecognizer);
+                tapGestureRecognizer.CommandParameter = stockItem;
+
+                sellButton.Content = sellLabel;
                 group2.Children.Add(sellButton);
                 horizontalStackRow.Children.Add(group2);
                 stackLayout.Children.Add(horizontalStackRow);
             }
-
+            scrollLayout.Content = stackLayout;
             // Set the StackLayout as the content of the ContentView
-            SellSection.Content = stackLayout;
+            SellSection.Content = scrollLayout;
         }
     }
 
     private void SellButtonClicked(object sender, EventArgs e)
     {
-        if (sender is Button button && button.CommandParameter is StockData stockData)
+        if (sender is View view && view.BindingContext is StockData stockData)
         {
             selectedStockData = stockData;
             SellSlider.IsEnabled = true;
@@ -215,8 +234,6 @@ public partial class SellAssets : ContentPage
             SellStockLogo.Text = stockData.CompanyName;
         }
     }
-
-
 
     private void AddButton(Grid grid, string text, int row, int column)
     {
@@ -254,21 +271,23 @@ public partial class SellAssets : ContentPage
 
     void OnSliderChange(object sender, ValueChangedEventArgs args)
 	{
-        // Get the current selected stocks value
-        // Slider value needs to be multiplied by current stock price
-        // Display multiplied value in the currency section
+        double newValue = args.NewValue;
         double stockValue = stockCost;
-		double value = Math.Round(args.NewValue, MidpointRounding.ToEven);
 
-        runningNumberInput = value.ToString();
-		ShareStockAmount.Text = value.ToString();
-        ShareSellAmount.Text = "$" + (value * stockValue).ToString();
+        double stockQuantity = Math.Round(newValue, 0);
+
+        double output = (stockQuantity *  stockValue);
+        output = Math.Round(output, 2);
+
+		ShareStockAmount.Text = stockQuantity.ToString() + " Shares";
+        ShareSellAmount.Text = output.ToString("C");
 	}
 
     private void ClearButtonClicked(object sender, EventArgs e)
     {
         SellSlider.Value = 0;
         runningNumberInput = "";
+        ShareSellAmount.Text = "$0.00";
     }
 
     private void DelButtonClicked(object sender, EventArgs e)
@@ -297,7 +316,7 @@ public partial class SellAssets : ContentPage
     }
 
     private void UpdateSliderValue()
-    {
+    {  
         if (double.TryParse(runningNumberInput, out double value))
         {
             value = Math.Min(value, SellSlider.Maximum); // Ensure value does not exceed maximum
@@ -306,34 +325,36 @@ public partial class SellAssets : ContentPage
         }
     }
 
+    private void AdjustSliderSettings()
+    {
+        try
+        {
+            SellSlider.Maximum = selectedStockData.Shares - stockAmountSold;
+
+            // Deduct the sold shares from the total
+            // This will be fixed more later on
+            selectedStockData.Shares -= stockAmountSold;
+            SellSlider.Value = 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+        }
+    }
+
     private async void ConfirmButtonClicked(object sender, EventArgs e)
     {
         if (selectedStockData != null)
         {
-            int sharesToSell = (int)SellSlider.Value;
-            double saleAmount = sharesToSell * selectedStockData.SharePrice;
-
-            // Deduct the sold shares from the total
-            // This will be fixed more later on
-            selectedStockData.Shares -= sharesToSell;
+            stockAmountSold = (int)SellSlider.Value;
+            double saleAmount = stockAmountSold * selectedStockData.SharePrice;
 
             // Update user's balance after sale
             await viewModel.UpdateBalance(viewModel.CurrentBalance + saleAmount);
 
-            // Now retrieve and use the updated balance
-            double updatedBalance = await viewModel.Balance();
+            AdjustSliderSettings();
 
-            if (updatedBalance >= 0)
-            {
-                // The balance was updated successfully
-                // Refresh or update the UI as needed
-                DisplayAssets();
-            }
-            else
-            {
-                // Handle the error case
-            }
+            DisplayAssets();
         }
     }
-
 }

@@ -15,6 +15,17 @@
         <Setter Property="FontFamily" Value="RobotoRegular"/>
     </Style>
 
+    <Style x:Key="EntryFormsWhite" TargetType="Entry">
+        <Setter Property="TextColor" Value="White"/>
+        <Setter Property="FontFamily" Value="RobotoRegular" />
+        <Setter Property="PlaceholderColor" Value="White"/>
+        <Setter Property="Shadow" Value="False" />
+        <Setter Property="HeightRequest" Value="40"/>
+        <Setter Property="Margin" Value="5, 2, 0, 0"/>
+        <Setter Property="FontFamily" Value="RobotoRegular"/>
+        <Setter Property="WidthRequest" Value="320" />
+    </Style>
+
     <Style x:Key="EntryHalfs" TargetType="Entry">
         <Setter Property="TextColor" Value="Black"/>
         <Setter Property="PlaceholderColor" Value="Black"/>
@@ -108,6 +119,18 @@
         </Setter>
     </Style>
 
+    <Style x:Key="MoneyBorder" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource MainForeground}"/>
+        <Setter Property="WidthRequest" Value="160" />
+        <Setter Property="HeightRequest" Value="80" />
+        <Setter Property="Margin" Value="0, 0, 0, 10" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="12"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <Style x:Key="HalfBorder" TargetType="Border">
         <Setter Property="BackgroundColor" Value="White"/>
         <Setter Property="HeightRequest" Value="30" />
@@ -127,6 +150,16 @@
         <Setter Property="StrokeShape">
             <Setter.Value>
                 <RoundRectangle CornerRadius="15"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="InputBorderBlue" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource MainForeground}"/>
+        <Setter Property="HeightRequest" Value="40" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="20"/>
             </Setter.Value>
         </Setter>
     </Style>

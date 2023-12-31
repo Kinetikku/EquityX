@@ -63,53 +63,53 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
 		<PackageReference Include="Refractored.MvvmHelpers" Version="1.6.2" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.8.116" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.7" />
+		<PackageReference Include="SQLitePCLRaw.core" Version="2.1.7" />
+		<PackageReference Include="SQLitePCLRaw.provider.dynamic_cdecl" Version="2.1.7" />
+		<PackageReference Include="SQLitePCLRaw.provider.sqlite3" Version="2.1.7" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="View\Account.xaml">
+	  <MauiXaml Update="Views\Account.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\AddMoney.xaml">
+	  <MauiXaml Update="Views\AddMoney.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\BuyAssets.xaml">
+	  <MauiXaml Update="Views\BuyAssets.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Crypto.xaml">
+	  <MauiXaml Update="Views\Crypto.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Dash.xaml">
+	  <MauiXaml Update="Views\Dash.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Landing.xaml">
+	  <MauiXaml Update="Views\Landing.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Login.xaml">
+	  <MauiXaml Update="Views\Login.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\SellAssets.xaml">
+	  <MauiXaml Update="Views\SellAssets.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\SignUp.xaml">
+	  <MauiXaml Update="Views\SignUp.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Stocks.xaml">
+	  <MauiXaml Update="Views\Stocks.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Wallet.xaml">
+	  <MauiXaml Update="Views\Wallet.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\Withdraw.xaml">
+	  <MauiXaml Update="Views\Withdraw.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Folder Include="Pages\" />
 	</ItemGroup>
 
 	<ItemGroup>

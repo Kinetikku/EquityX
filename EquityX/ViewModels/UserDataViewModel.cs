@@ -2,11 +2,14 @@
 using EquityX.Services;
 using MvvmHelpers;
 using MvvmHelpers.Commands;
+using System.ComponentModel;
 
 namespace EquityX.ViewModel
 {
-    public class UserDataViewModel
+    public class UserDataViewModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         // Binding properties to the UI from Sign Up page
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,7 +26,19 @@ namespace EquityX.ViewModel
         public string EmailLogin { get; set; }
         public string PasswordLogin { get; set; }
 
-        public double CurrentBalance { get; private set; }
+        private double _currentBalance;
+        public double CurrentBalance
+        {
+            get { return _currentBalance; }
+            private set
+            {
+                if (_currentBalance != value)
+                {
+                    _currentBalance = value;
+                    OnPropertyChanged(nameof(CurrentBalance));
+                }
+            }
+        }
 
         public ObservableRangeCollection<UserData> User {  get; set; }
         public AsyncCommand AddUser { get; }
@@ -57,6 +72,20 @@ namespace EquityX.ViewModel
             await UserService.AddUser(newUser.FirstName, newUser.LastName, newUser.Email, newUser.Password, newUser.Mobile, newUser.City, newUser.Address1, newUser.Address2, newUser.County, newUser.Country, 100.00);
         }
 
+        protected void OnPropertyChanged(string propertyName)
+        {
+            try
+            {
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+            
+        }
+
+
         public async Task<bool> Login()
         {
             bool isValidUser = await UserService.ValidateLogin(EmailLogin, PasswordLogin);
@@ -76,6 +105,19 @@ namespace EquityX.ViewModel
             {
                 var email = await SecureStorage.GetAsync("CurrentUserEmail");
                 await UserService.UpdateUserBalance(email, newBalance);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        public async Task WithdrawBalance(double withdrawAmount)
+        {
+            try
+            {
+                var email = await SecureStorage.GetAsync("CurrentUserEmail");
+                await UserService.UpdateUserBalanceWithdraw(email, withdrawAmount);
             }
             catch (Exception ex)
             {

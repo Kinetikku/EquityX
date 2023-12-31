@@ -7,7 +7,7 @@
         <!-- Total Cash Value Component -->
         <Border HeightRequest="150" WidthRequest="360">
             <VerticalStackLayout VerticalOptions="Center">
-                <Label x:Name="TotalMoney" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="{Binding CurrentBalance}" Margin="0,15,0,10"/>
+                <Label x:Name="TotalMoney" HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="{Binding CurrentBalance, StringFormat='{0:C}'}" Margin="0,15,0,10"/>
                 <Label HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource SubLabel}" Text="TOTAL CASH VALUE"/>
             </VerticalStackLayout>
         </Border>
@@ -15,27 +15,48 @@
         <Border HeightRequest="150" WidthRequest="360">
             <VerticalStackLayout VerticalOptions="Center">
                 <Ellipse WidthRequest="180" HeightRequest="180" Fill="#3A5066" HorizontalOptions="Center" Margin="0, -80, 0, 40"/>
-                <Label HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="$20" Margin="0,-130,0,60"/>
-                <HorizontalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Margin="0, -45, 0 , 40">
+                <Label x:Name="DepositAmount"  HorizontalOptions="Center" VerticalOptions="Center" Style="{StaticResource HeadingLabel}" Text="$0.00" Margin="0,-130,0,60"/>
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="OnDepositAmountTapped"/>
+                </Label.GestureRecognizers>
+                <FlexLayout JustifyContent="SpaceEvenly" AlignItems="Start" Margin="0, -65, 0 , 40">
                     <Border Style="{StaticResource AddFundsBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAmountTapped" CommandParameter="5"/>
+                        </Border.GestureRecognizers>
                         <Label Style="{StaticResource MediumLabelBlack}" Text="$5"/>
                     </Border>
                     <Border Style="{StaticResource AddFundsBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAmountTapped" CommandParameter="10"/>
+                        </Border.GestureRecognizers>
                         <Label Style="{StaticResource MediumLabelBlack}" Text="$10"/>
                     </Border>
                     <Border Style="{StaticResource AddFundsBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAmountTapped" CommandParameter="15"/>
+                        </Border.GestureRecognizers>
                         <Label Style="{StaticResource MediumLabelBlack}" Text="$15"/>
                     </Border>
                     <Border Style="{StaticResource AddFundsBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAmountTapped" CommandParameter="20"/>
+                        </Border.GestureRecognizers>
                         <Label Style="{StaticResource MediumLabelBlack}" Text="$20"/>
                     </Border>
                     <Border Style="{StaticResource AddFundsBorder}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnAmountTapped" CommandParameter="30"/>
+                        </Border.GestureRecognizers>
                         <Label Style="{StaticResource MediumLabelBlack}" Text="$30"/>
                     </Border>
-                </HorizontalStackLayout>
+                </FlexLayout>
             </VerticalStackLayout>
         </Border>
         <Border Style="{StaticResource ConfirmBorder}">
+            <Border.GestureRecognizers>
+                <TapGestureRecognizer Tapped="AddFunds"/>
+            </Border.GestureRecognizers>
             <Label Style="{StaticResource MediumLabelBlack}" Text="Confirm"/>
         </Border>
     </VerticalStackLayout>

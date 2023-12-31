@@ -2,6 +2,7 @@
 
 namespace EquityX.Model
 {
+    [Table("UserData")]
     public class UserData
     {
         public string FirstName { get; set; }
@@ -16,5 +17,5 @@ namespace EquityX.Model
         public string County { get; set; }
         public string Country { get; set; }
         public double Balance { get; set; }
-    }
+    } 
 }

@@ -21,10 +21,17 @@
         "GainPercentage": 6.5
     },
     {
-        "LogoCode": "456789",
-        "CompanyName": "Orbitrix",
-        "Shares": 180,
-        "SharePrice": 53.75,
-        "GainPercentage": 4.7
+      "LogoCode": "456789",
+      "CompanyName": "Orbitrix",
+      "Shares": 180,
+      "SharePrice": 53.75,
+      "GainPercentage": 4.7
+    },
+    {
+      "LogoCode": "466819",
+      "CompanyName": "Apple",
+      "Shares": 20,
+      "SharePrice": 183.45,
+      "GainPercentage": 9.37
     }
 ]

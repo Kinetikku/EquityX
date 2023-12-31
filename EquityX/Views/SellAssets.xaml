@@ -24,7 +24,7 @@
                 </HorizontalStackLayout>
                 
                 <Slider x:Name="SellSlider" Style="{StaticResource SellStocksSlider}" IsEnabled="False" ValueChanged="OnSliderChange" Margin="0, 10, 0, 0" />
-
+                
                 <ContentView x:Name="calculatorPlaceholder" Margin="0, 20, 0, 0" HorizontalOptions="Center" VerticalOptions="Center"/>
 
                 <Button x:Name="ConfirmButton" Style="{StaticResource ConfirmButton}" Margin=" 0, 20, 0, 0" Clicked="ConfirmButtonClicked"/>

@@ -1,4 +1,5 @@
 ﻿using EquityX.Model;
+using EquityX.Models;
 using SQLite;
 
 namespace EquityX.Services
@@ -18,7 +19,11 @@ namespace EquityX.Services
             db = new SQLiteAsyncConnection(databasePath);
 
             await db.CreateTableAsync<UserData>();
+            await db.CreateTableAsync<StockData>();
+            await db.CreateTableAsync<CryptoData>();
         }
+
+        // UserData Commands & Actions
 
         // Adds a user to the database
         public static async Task AddUser(string firstName, string lastName, string email, string password, string mobile, string city, string address1, string address2, string county, string country, double balance)
@@ -96,6 +101,27 @@ namespace EquityX.Services
             await db.UpdateAsync(user);
         }
 
+        // Update the users balance
+        public static async Task UpdateUserBalanceWithdraw(string email, double withdrawAmount)
+        {
+            await Init();
+
+            // Retrieve the user from the database
+            var user = await db.Table<UserData>().Where(u => u.Email == email).FirstOrDefaultAsync();
+
+            // Check if the user exists
+            if (user == null)
+            {
+                throw new Exception("User not found.");
+            }
+
+            // Update the user's balance
+            user.Balance -= withdrawAmount;
+
+            // Save the updated user back to the database
+            await db.UpdateAsync(user);
+        }
+
         public static async Task<bool> ValidateLogin(string email, string password)
         {
             await Init();
@@ -110,6 +136,48 @@ namespace EquityX.Services
                 return false;
             else
                 return true;
+        }
+
+        // StockData Commands & Actions
+        public static async Task BuyStock(string logoCode, string companyName, int shares, double sharePrice, double gainPercentage, string email)
+        {
+            await Init();
+
+            var stock = new StockData
+            {
+                LogoCode = logoCode,
+                CompanyName = companyName,
+                Shares = shares,
+                SharePrice = sharePrice,
+                GainPercentage = gainPercentage,
+                Email = email
+            };
+
+            await db.InsertAsync(stock);
+        }
+
+
+
+
+
+
+
+        // CryptoData Commands & Actions
+        public static async Task BuyCrypto(string logoCode, string companyName, int coins, double coinPrice, double gainPercentage, string email)
+        {
+            await Init();
+
+            var stock = new CryptoData
+            {
+                LogoCode = logoCode,
+                CompanyName = companyName,
+                Coins = coins,
+                CoinPrice = coinPrice,
+                GainPercentage = gainPercentage,
+                Email = email
+            };
+
+            await db.InsertAsync(stock);
         }
     }
 }

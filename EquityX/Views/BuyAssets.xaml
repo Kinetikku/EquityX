@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="EquityX.Pages.BuyAssets"
+             Title="BuyAssets">
+    <VerticalStackLayout>
+        <Border WidthRequest="360" HeightRequest="450">
+            <VerticalStackLayout>
+                <Label Style="{StaticResource MediumLabelWhite}" Text="Buy" HorizontalOptions="Start" VerticalOptions="Start" Margin="15,15,0,0"/>
+                <HorizontalStackLayout HorizontalOptions="Center">
+                    <!-- Price circle -->
+                    <VerticalStackLayout>
+                        <Border Style="{StaticResource CircleBorder}" Margin="0,0,10,0">
+                        <Label x:Name="PriceAmount" Style="{StaticResource MediumLabelWhite}" Text="$0.00"/>
+                    </Border>
+                    </VerticalStackLayout>
+                    <Image Source="sell_arrow.png" Aspect="AspectFit" WidthRequest="40" Margin="15, 0, 15, 0"/>
+                    <!-- Total Shares being purchased circle -->
+                    <Border Style="{StaticResource CircleBorder}" Margin="0,0,0,0">
+                        <VerticalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <!-- Add the stock image here for automation -->
+                            <Label x:Name="BuyStockLogo" Style="{StaticResource MediumLabelWhite}" FontSize="12" Text="Logo TBA"/>
+                            <Label x:Name="ShareStockAmount" Style="{StaticResource MediumLabelWhite}" Text="0 Shares"/>
+                        </VerticalStackLayout>
+                    </Border>
+                </HorizontalStackLayout>
+
+                <Slider x:Name="BuySlider" Style="{StaticResource SellStocksSlider}" ValueChanged="OnSliderChange" Margin="0, 10, 0, 0" />
+
+                <ContentView x:Name="calculatorPlaceholder" Margin="0, 20, 0, 0" HorizontalOptions="Center" VerticalOptions="Center"/>
+
+                <Button x:Name="ConfirmButton" Style="{StaticResource ConfirmButton}" Margin=" 0, 20, 0, 0" Clicked="ConfirmButtonClicked"/>
+            </VerticalStackLayout>
+        </Border>
+    </VerticalStackLayout>
+</ContentPage>
