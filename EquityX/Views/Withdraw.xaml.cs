@@ -16,8 +16,6 @@ public partial class Withdraw : ContentPage
         viewModel = new UserDataViewModel();
         this.BindingContext = viewModel;
 
-        ReadCurrencyAmount();
-
         // Create a Grid
         var grid = new Grid
         {
@@ -60,15 +58,7 @@ public partial class Withdraw : ContentPage
         base.OnAppearing();
         var amount = await viewModel.Balance();
         TotalMoney.Text = Math.Round(amount, 2).ToString("C");
-    }
-
-    public async void ReadCurrencyAmount()
-    {
-        var bal = await viewModel.Balance();
-
-        WithdrawSlider.Maximum = bal;
-
-        TotalMoney.Text = bal.ToString();
+        WithdrawSlider.Maximum = amount;
     }
 
     private void AddButton(Grid grid, string text, int row, int column)

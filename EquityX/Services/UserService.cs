@@ -24,6 +24,7 @@ namespace EquityX.Services
         }
 
         // UserData Commands & Actions
+        // ---------------------------
 
         // Adds a user to the database
         public static async Task AddUser(string firstName, string lastName, string email, string password, string mobile, string city, string address1, string address2, string county, string country, double balance)
@@ -139,24 +140,75 @@ namespace EquityX.Services
         }
 
         // StockData Commands & Actions
+        // ----------------------------
+
+        // Adds stock to the Stock table
         public static async Task BuyStock(string logoCode, string companyName, int shares, double sharePrice, double gainPercentage, string email)
         {
             await Init();
 
-            var stock = new StockData
-            {
-                LogoCode = logoCode,
-                CompanyName = companyName,
-                Shares = shares,
-                SharePrice = sharePrice,
-                GainPercentage = gainPercentage,
-                Email = email
-            };
+            // Check if the stock already exists for the user
+            var existingStock = await db.Table<StockData>().Where(s => s.LogoCode == logoCode && s.Email == email).FirstOrDefaultAsync();
 
-            await db.InsertAsync(stock);
+            if (existingStock != null)
+            {
+                // Update existing stock
+                existingStock.Shares += shares;
+                await db.UpdateAsync(existingStock);
+            }
+            else
+            {
+                // Insert new stock
+                var stock = new StockData
+                {
+                    LogoCode = logoCode,
+                    CompanyName = companyName,
+                    Shares = shares,
+                    SharePrice = sharePrice,
+                    GainPercentage = gainPercentage,
+                    Email = email
+                };
+
+                await db.InsertAsync(stock);
+            }
         }
 
 
+        // Removes a select amount of stock from the table depending on the share amount that is passed in
+        public static async Task SellStock(string logoCode, int sharesToSell, string email)
+        {
+            await Init();
+
+            var existingStock = await db.Table<StockData>().Where(s => s.LogoCode == logoCode && s.Email == email).FirstOrDefaultAsync();
+
+            if (existingStock != null)
+            {
+                if (existingStock.Shares >= sharesToSell)
+                {
+                    existingStock.Shares -= sharesToSell;
+
+                    if (existingStock.Shares == 0)
+                        await db.DeleteAsync(existingStock);
+                    else
+                        await db.UpdateAsync(existingStock);
+                }
+                else
+                    throw new InvalidOperationException("Not enough shares to sell.");
+            }
+            else
+                throw new InvalidOperationException("Stock not found.");
+        }
+
+
+        public static async Task<List<StockData>> GetStocks(string email)
+        {
+            await Init();
+
+            // Get stocks associated with the specific user email
+            var stocks = await db.Table<StockData>().Where(s => s.Email == email).ToListAsync();
+
+            return stocks;
+        }
 
 
 

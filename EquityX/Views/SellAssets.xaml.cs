@@ -1,5 +1,6 @@
 using EquityX.Models;
 using EquityX.ViewModel;
+using EquityX.ViewModels;
 using System.Reflection;
 using System.Text.Json;
 
@@ -8,18 +9,21 @@ namespace EquityX.Pages;
 public partial class SellAssets : ContentPage
 {
     private string runningNumberInput = "";
+    private string currentEmail;
     private int stockAmountSold;
     private double stockCost;
 
     private List<StockData> stockDataList;
     private StockData selectedStockData;
     private UserDataViewModel viewModel;
+    private StockDataViewModel stockModel;
 
     public SellAssets()
 	{
 		InitializeComponent();
         LoadStockData().ConfigureAwait(false);
-        DisplayAssets();
+
+        stockModel = new StockDataViewModel();
         viewModel = new UserDataViewModel();
         this.BindingContext = viewModel;
 
@@ -60,18 +64,26 @@ public partial class SellAssets : ContentPage
         calculatorPlaceholder.Content = grid;
     }
 
-    private async Task LoadStockData()
+    private async Task GetCurrentEmailAsync()
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        var resourceName = "EquityX.Resources.data.json"; // Adjust the namespace
-
-        using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-        using (StreamReader reader = new StreamReader(stream))
+        try
         {
-            string json = await reader.ReadToEndAsync();
-            stockDataList = JsonSerializer.Deserialize<List<StockData>>(json);
+            string email = await SecureStorage.GetAsync("CurrentUserEmail");
+            currentEmail = email;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error retrieving email from secure storage: {ex.Message}");
         }
     }
+
+    private async Task LoadStockData()
+    {
+        await GetCurrentEmailAsync();
+        stockDataList = await stockModel.LoadStocks(currentEmail);
+        DisplayAssets();
+    }
+
 
     private void DisplayAssets()
     {
@@ -351,6 +363,8 @@ public partial class SellAssets : ContentPage
 
             // Update user's balance after sale
             await viewModel.UpdateBalance(viewModel.CurrentBalance + saleAmount);
+            // Need to edit the remove to be seen on the UI - Needs done
+            await stockModel.RemoveStock(selectedStockData.Email, selectedStockData.LogoCode, stockAmountSold);
 
             AdjustSliderSettings();
 

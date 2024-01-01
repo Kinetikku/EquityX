@@ -1,20 +1,28 @@
 using EquityX.Models;
 using EquityX.ViewModel;
+using EquityX.ViewModels;
 
 namespace EquityX.Pages;
 
 public partial class BuyAssets : ContentPage
 {
     private string runningNumberInput = "";
+    private string currentEmail;
+
+    private int stockAmountBought;
 
     private double currentBalance;
-    private double stockAmountBought;
-    private double SharePrice;
+    private double spendAmount;
+
     private UserDataViewModel viewModel;
+    private StockDataViewModel stockModel;
+
     private StockData _stockData;
     public BuyAssets(StockData stockData)
 	{
 		InitializeComponent();
+
+        stockModel = new StockDataViewModel();
         viewModel = new UserDataViewModel();
         this.BindingContext = viewModel;
 
@@ -95,18 +103,34 @@ public partial class BuyAssets : ContentPage
         base.OnAppearing();
         currentBalance = await viewModel.Balance();
         BuySlider.Maximum = currentBalance;
+        await GetCurrentEmailAsync();
     }
+
+    private async Task GetCurrentEmailAsync()
+    {
+        try
+        {
+            string email = await SecureStorage.GetAsync("CurrentUserEmail");
+            currentEmail = email;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error retrieving email from secure storage: {ex.Message}");
+        }
+    }
+
 
     void OnSliderChange(object sender, ValueChangedEventArgs args)
     {
         double stockValue = _stockData.SharePrice;
 
-        double stockQuantity = Math.Round(args.NewValue, 0);
+        spendAmount = Math.Round(args.NewValue, 2);
 
-        double output = ((stockQuantity * stockValue) / currentBalance);
-        output = Math.Round(output, 0);
+        double availableStock = (spendAmount / stockValue);
+        stockAmountBought  = (int)Math.Round(availableStock, 0);
+        
 
-        ShareStockAmount.Text = output.ToString() + " Shares";
+        ShareStockAmount.Text = stockAmountBought.ToString() + " Shares";
         PriceAmount.Text = args.NewValue.ToString("C");
     }
 
@@ -172,12 +196,9 @@ public partial class BuyAssets : ContentPage
     {
         if (_stockData != null)
         {
-            stockAmountBought = (int)BuySlider.Value;
-            double saleAmount = stockAmountBought * _stockData.SharePrice;
-
             // Update user's balance after sale
-            await viewModel.UpdateBalance(viewModel.CurrentBalance + saleAmount);
-
+            await stockModel.AddStock(_stockData.LogoCode, _stockData.CompanyName, stockAmountBought, _stockData.SharePrice, _stockData.GainPercentage, currentEmail);
+            await viewModel.WithdrawBalance(spendAmount);
             AdjustSliderSettings();
         }
     }
