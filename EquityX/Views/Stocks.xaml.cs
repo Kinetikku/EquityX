@@ -1,6 +1,5 @@
 using EquityX.Models;
-using EquityX.ViewModel;
-using System.Reflection;
+using EquityX.Services;
 using System.Text.Json;
 
 namespace EquityX.Pages;
@@ -8,31 +7,51 @@ namespace EquityX.Pages;
 public partial class Stocks : ContentPage
 {
     private List<StockData> stockDataList;
-    private StockData selectedStockData;
-    private UserDataViewModel viewModel;
+    private IDispatcherTimer _timer;
 
     public Stocks()
 	{
 		InitializeComponent();
 
-        LoadStockData().ConfigureAwait(false);
-        DisplayAssets();
-        viewModel = new UserDataViewModel();
-        this.BindingContext = viewModel;
+        LoadStockData().ConfigureAwait(true);
+
+        _timer = Application.Current.Dispatcher.CreateTimer();
+        _timer.Interval = TimeSpan.FromSeconds(60);
+        _timer.Tick += (sender, e) => LoadStockData().ConfigureAwait(true);
+        _timer.Start();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        _timer?.Stop();
     }
 
     private async Task LoadStockData()
     {
-        var assembly = Assembly.GetExecutingAssembly();
-        var resourceName = "EquityX.Resources.data.json"; // Adjust the namespace
+        WebDataManager apiData = new WebDataManager();
+        apiData.GetQuote();
 
-        using (Stream stream = assembly.GetManifestResourceStream(resourceName))
-        using (StreamReader reader = new StreamReader(stream))
+        string filePath = Path.Combine(FileSystem.AppDataDirectory, "data.json");
+
+        if (File.Exists(filePath))
         {
-            string json = await reader.ReadToEndAsync();
-            stockDataList = JsonSerializer.Deserialize<List<StockData>>(json);
+            string json = await File.ReadAllTextAsync(filePath);
+
+            // Deserialize JSON to a list of StockData
+            var allItems = JsonSerializer.Deserialize<List<StockData>>(json);
+
+            // Filter to only include items where Type is "Stock"
+            stockDataList = allItems?.Where(item => item.Type == "Stock").ToList();
         }
+        else
+        {
+            Console.WriteLine("No data can be obtained");  
+        }
+
+        DisplayAssets();
     }
+
 
     private void DisplayAssets()
     {
@@ -41,6 +60,7 @@ public partial class Stocks : ContentPage
             // Create a vertical scroll for the rows
             var scrollLayout = new ScrollView();
             scrollLayout.Orientation = ScrollOrientation.Vertical;
+            scrollLayout.HeightRequest = 650;
 
             // Create a new StackLayout
             var stackLayout = new VerticalStackLayout();
@@ -68,7 +88,7 @@ public partial class Stocks : ContentPage
 
                 var companyLogo = new Image
                 {
-                    Source = "",
+                    Source = stockItem.Image??"",
                     WidthRequest = 40,
                     HeightRequest = 40,
                     Aspect = Aspect.AspectFit

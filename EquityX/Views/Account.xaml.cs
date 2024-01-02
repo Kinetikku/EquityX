@@ -1,10 +1,42 @@
+using EquityX.Model;
+using EquityX.ViewModel;
+using EquityX.Views;
+
 namespace EquityX.Pages;
 
 public partial class Account : ContentPage
 {
+    private UserDataViewModel viewModel;
+    private UserData userData;
+
+    private Label nameValue;
+    private Label emailValue;
+    private Label mobileValue;
+    private Label passwordValue;
+    private Label townValue;
+    private Label address1Value;
+    private Label address2Value;
+    private Label countyValue;
+    private Label countryValue;
+
     public Account()
     {
         InitializeComponent();
+
+        viewModel = new UserDataViewModel();
+
+        SetupUI();
+    }
+
+    private async Task<UserData> getUserInfo()
+    {
+        userData = await viewModel.GetUser();
+        return userData;
+    }
+
+    private async void SetupUI()
+    {
+        userData = await getUserInfo();
 
         // Create a frame with rounded corners
         Frame circleFrame = new Frame
@@ -21,7 +53,7 @@ public partial class Account : ContentPage
         // Create an image
         Image circleImage = new Image
         {
-            Source = "account_profile.png", // Replace with your image path
+            Source = "account_profile.png",
             Aspect = Aspect.AspectFill,
             HeightRequest = 150,
             WidthRequest = 150,
@@ -65,7 +97,7 @@ public partial class Account : ContentPage
         Grid.SetRow(nameLabel, 0);
         accountDetailsGrid.Children.Add(nameLabel);
 
-        var nameValue = new Label { Text = "Gareth Craig" };
+        nameValue = new Label { Text = userData.FirstName + " " + userData.LastName };
         nameValue.FontFamily = "RobotoRegular";
         Grid.SetColumn(nameValue, 1);
         Grid.SetRow(nameValue, 0);
@@ -78,7 +110,7 @@ public partial class Account : ContentPage
         Grid.SetRow(emailLabel, 1);
         accountDetailsGrid.Children.Add(emailLabel);
 
-        var emailValue = new Label { Text = "garethcraig@atu.ie" };
+        emailValue = new Label { Text = userData.Email };
         emailValue.FontFamily = "RobotoRegular";
         Grid.SetColumn(emailValue, 1);
         Grid.SetRow(emailValue, 1);
@@ -91,7 +123,7 @@ public partial class Account : ContentPage
         Grid.SetRow(mobileLabel, 2);
         accountDetailsGrid.Children.Add(mobileLabel);
 
-        var mobileValue = new Label { Text = "0871234567" };
+        mobileValue = new Label { Text = userData.Mobile };
         mobileValue.FontFamily = "RobotoRegular";
         Grid.SetColumn(mobileValue, 1);
         Grid.SetRow(mobileValue, 2);
@@ -104,7 +136,7 @@ public partial class Account : ContentPage
         Grid.SetRow(townLabel, 3);
         accountDetailsGrid.Children.Add(townLabel);
 
-        var townValue = new Label { Text = "Raphoe" };
+        townValue = new Label { Text = userData.City };
         townValue.FontFamily = "RobotoRegular";
         Grid.SetColumn(townValue, 1);
         Grid.SetRow(townValue, 3);
@@ -117,7 +149,7 @@ public partial class Account : ContentPage
         Grid.SetRow(address1Label, 4);
         accountDetailsGrid.Children.Add(address1Label);
 
-        var address1Value = new Label { Text = "Common" };
+        address1Value = new Label { Text = userData.Address1 };
         address1Value.FontFamily = "RobotoRegular";
         Grid.SetColumn(address1Value, 1);
         Grid.SetRow(address1Value, 4);
@@ -130,7 +162,7 @@ public partial class Account : ContentPage
         Grid.SetRow(address2Label, 5);
         accountDetailsGrid.Children.Add(address2Label);
 
-        var address2Value = new Label { Text = "" };
+        address2Value = new Label { Text = userData.Address2 ?? "" };
         address2Value.FontFamily = "RobotoRegular";
         Grid.SetColumn(address2Value, 1);
         Grid.SetRow(address2Value, 5);
@@ -143,7 +175,7 @@ public partial class Account : ContentPage
         Grid.SetRow(countyLabel, 6);
         accountDetailsGrid.Children.Add(countyLabel);
 
-        var countyValue = new Label { Text = "Donegal" };
+        countyValue = new Label { Text = userData.County };
         countyValue.FontFamily = "RobotoRegular";
 
         Grid.SetColumn(countyValue, 1);
@@ -157,7 +189,7 @@ public partial class Account : ContentPage
         Grid.SetRow(countryLabel, 7);
         accountDetailsGrid.Children.Add(countryLabel);
 
-        var countryValue = new Label { Text = "Ireland" };
+        countryValue = new Label { Text = userData.Country };
         countryValue.FontFamily = "RobotoRegular";
         Grid.SetColumn(countryValue, 1);
         Grid.SetRow(countryValue, 7);
@@ -184,8 +216,42 @@ public partial class Account : ContentPage
             Content = label
         };
 
+        var tapGestureRecognizer = new TapGestureRecognizer();
+        tapGestureRecognizer.Tapped += EditButton_Tapped;
+        editButton.GestureRecognizers.Add(tapGestureRecognizer);
+
         circleFrame.Content = circleImage;
         MainLayout.Children.Add(accountDetailsFrame);
         MainLayout.Children.Add(editButton);
     }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        UpdateUIWithUserData();
+    }
+
+    private void UpdateUIWithUserData()
+    {
+        if (userData != null)
+        {
+            nameValue.Text = $"{userData.FirstName} {userData.LastName}";
+            emailValue.Text = userData.Email;
+            mobileValue.Text = userData.Mobile;
+            townValue.Text = userData.City;
+            address1Value.Text = userData.Address1;
+            address2Value.Text = userData.Address2 ?? "";
+            countyValue.Text = userData.County;
+            countryValue.Text = userData.Country;
+        }
+    }
+
+    private async void EditButton_Tapped(object sender, EventArgs e)
+    {
+        if (userData != null)
+            await Navigation.PushAsync(new EditUser(userData));
+        else
+            await DisplayAlert("Error", "User data not available for editing.", "OK");
+    }
+
 }

@@ -53,6 +53,23 @@ namespace EquityX.ViewModel
             GetUserBalance = new AsyncCommand(Balance);
         }
 
+        public async Task<UserData> GetUser()
+        {
+            var email = await SecureStorage.GetAsync("CurrentUserEmail");
+            if (email != null)
+            {
+                var userData = await UserService.GetUserDataByEmail(email);
+
+                if (userData != null)
+                    return userData;
+                else
+                    return null;
+            }
+            else
+                return null;
+        }
+
+
         async Task Add()
         {
             var newUser = new UserData
@@ -83,6 +100,27 @@ namespace EquityX.ViewModel
                 Console.WriteLine(ex.ToString());
             }
             
+        }
+
+        public async Task UpdateUser(UserData updatedUserData)
+        {
+            try
+            {
+                var email = await SecureStorage.GetAsync("CurrentUserEmail");
+                if (email != null && email == updatedUserData.Email)
+                {
+                    await UserService.UpdateUserInfo(updatedUserData);
+                }
+                else
+                {
+                    throw new InvalidOperationException("Email mismatch.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                throw;
+            }
         }
 
 

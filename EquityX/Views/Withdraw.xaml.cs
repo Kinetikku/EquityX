@@ -8,6 +8,7 @@ public partial class Withdraw : ContentPage
     // While the other will have formatting done to it for presentation
     private string displayInputAmountFormatted = "$0.00";
     private string runningNumberInput = "";
+    private double amount;
 
     private UserDataViewModel viewModel;
     public Withdraw()
@@ -56,7 +57,7 @@ public partial class Withdraw : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        var amount = await viewModel.Balance();
+        amount = await viewModel.Balance();
         TotalMoney.Text = Math.Round(amount, 2).ToString("C");
         WithdrawSlider.Maximum = amount;
     }
@@ -140,7 +141,7 @@ public partial class Withdraw : ContentPage
     private void NumberButtonClicked(object sender, EventArgs e)
     {
         var button = sender as Button;
-        if (button != null)
+        if (button != null && amount > 0)
         {
             runningNumberInput += button.Text; // Append the button's number to the current input
             UpdateSliderValue();
@@ -174,25 +175,28 @@ public partial class Withdraw : ContentPage
 
     private async void ConfirmButtonClicked(object sender, EventArgs e)
     {
-        try
+        if (amount > 0)
         {
-            double.TryParse(runningNumberInput, out double withdrawAmount);
-            await viewModel.WithdrawBalance(withdrawAmount);
+            try
+            {
+                double.TryParse(runningNumberInput, out double withdrawAmount);
+                await viewModel.WithdrawBalance(withdrawAmount);
 
-            double balance = await viewModel.Balance();
+                double balance = await viewModel.Balance();
 
-            TotalMoney.Text = balance.ToString("C");
-            WithdrawAmount.Text = "$0.00";
+                TotalMoney.Text = balance.ToString("C");
+                WithdrawAmount.Text = "$0.00";
 
-            AdjustSliderSettings();
+                AdjustSliderSettings();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
+
+
+            // Now retrieve and use the updated balance
+            double updatedBalance = await viewModel.Balance();
         }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex.ToString());
-        }
-        
-
-        // Now retrieve and use the updated balance
-        double updatedBalance = await viewModel.Balance();
     }
 }

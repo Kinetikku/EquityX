@@ -16,10 +16,10 @@
             <BoxView Grid.Column="1" HeightRequest="1" BackgroundColor="White" VerticalOptions="Center" />
         </Grid>
         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center" Margin=" 0, 80, 0, 0">
-            <Border Style="{StaticResource InputBorder}" Margin="0, 0, 3, 8">
+            <Border Style="{StaticResource HalfBorder}" Margin="0, 0, 3, 8">
                 <Entry Style="{StaticResource EntryHalfs}"  x:Name="FirstName" Text="{Binding FirstName, Mode=TwoWay}" Placeholder="First Name" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
             </Border>
-            <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
+            <Border Style="{StaticResource HalfBorder}" Margin="0, 0, 0, 8">
                 <Entry Style="{StaticResource EntryHalfs}"  x:Name="LastName" Text="{Binding LastName, Mode=TwoWay}" Placeholder="Last Name" MaxLength="40" Keyboard="Plain" ReturnType="Next"/>
             </Border>
         </HorizontalStackLayout>

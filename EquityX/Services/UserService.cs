@@ -52,6 +52,40 @@ namespace EquityX.Services
             await db.InsertAsync(user);
         }
 
+        // Get user information
+        public static async Task<UserData> GetUserDataByEmail(string email)
+        {
+            await Init();
+            return await db.Table<UserData>().FirstOrDefaultAsync(u => u.Email == email);
+        }
+
+        // Update current users info
+        public static async Task UpdateUserInfo(UserData updatedUser)
+        {
+            await Init();
+
+            var existingUser = await db.Table<UserData>().Where(u => u.Email == updatedUser.Email).FirstOrDefaultAsync();
+            if (existingUser != null)
+            {
+                existingUser.FirstName = updatedUser.FirstName;
+                existingUser.LastName = updatedUser.LastName;
+                existingUser.Password = updatedUser.Password;
+                existingUser.City = updatedUser.City;
+                existingUser.Address1 = updatedUser.Address1;
+                existingUser.Address2 = updatedUser.Address2;
+                existingUser.County = updatedUser.County;
+                existingUser.Country = updatedUser.Country;
+                existingUser.Mobile = updatedUser.Mobile;
+
+                await db.UpdateAsync(existingUser);
+            }
+            else
+            {
+                throw new InvalidOperationException("User not found.");
+            }
+        }
+
+
         // Checks if user is already on the database
         public static async Task<bool> CheckUserExists(string email)
         {
@@ -210,26 +244,73 @@ namespace EquityX.Services
             return stocks;
         }
 
-
-
-
-
         // CryptoData Commands & Actions
+        // -----------------------------
+
+        // Adds crypto to the crypto table
         public static async Task BuyCrypto(string logoCode, string companyName, int coins, double coinPrice, double gainPercentage, string email)
         {
             await Init();
 
-            var stock = new CryptoData
-            {
-                LogoCode = logoCode,
-                CompanyName = companyName,
-                Coins = coins,
-                CoinPrice = coinPrice,
-                GainPercentage = gainPercentage,
-                Email = email
-            };
+            // Check if the stock already exists for the user
+            var existingCrypto = await db.Table<CryptoData>().Where(s => s.LogoCode == logoCode && s.Email == email).FirstOrDefaultAsync();
 
-            await db.InsertAsync(stock);
+            if (existingCrypto != null)
+            {
+                // Update existing stock
+                existingCrypto.Coins += coins;
+                await db.UpdateAsync(existingCrypto);
+            }
+            else
+            {
+                var crypto = new CryptoData
+                {
+                    LogoCode = logoCode,
+                    CompanyName = companyName,
+                    Coins = coins,
+                    CoinPrice = coinPrice,
+                    GainPercentage = gainPercentage,
+                    Email = email
+                };
+
+                await db.InsertAsync(crypto);
+            }
         }
+
+        public static async Task SellCrypto(string logoCode, int coinsToSell, string email)
+        {
+            await Init();
+
+            var existingCrypto = await db.Table<CryptoData>().Where(s => s.LogoCode == logoCode && s.Email == email).FirstOrDefaultAsync();
+
+            if (existingCrypto != null)
+            {
+                if (existingCrypto.Coins >= coinsToSell)
+                {
+                    existingCrypto.Coins -= coinsToSell;
+
+                    if (existingCrypto.Coins == 0)
+                        await db.DeleteAsync(existingCrypto);
+                    else
+                        await db.UpdateAsync(existingCrypto);
+                }
+                else
+                    throw new InvalidOperationException("Not enough coins to sell.");
+            }
+            else
+                throw new InvalidOperationException("Crypto not found.");
+        }
+
+        public static async Task<List<CryptoData>> GetCryptos(string email)
+        {
+            await Init();
+
+            // Get cryptos associated with the specific user email
+            var cryptos = await db.Table<CryptoData>().Where(s => s.Email == email).ToListAsync();
+
+            return cryptos;
+        }
+
+
     }
 }

@@ -10,7 +10,7 @@
             <!-- Total Asset Value Component -->
             <Border HeightRequest="150" WidthRequest="360">
                 <VerticalStackLayout VerticalOptions="Center">
-                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="$789.59" Margin="0,15,0,10" Style="{StaticResource HeadingLabel}" />
+                    <Label HorizontalOptions="Center" VerticalOptions="Center" Text="{Binding TotalAssetsValue, StringFormat='{0:C}'}" Margin="0,15,0,10" Style="{StaticResource HeadingLabel}" />
                     <Label HorizontalOptions="Center" VerticalOptions="Center" Text="TOTAL ASSET VALUE" Style="{StaticResource SubLabel}" />
                 </VerticalStackLayout>
             </Border>

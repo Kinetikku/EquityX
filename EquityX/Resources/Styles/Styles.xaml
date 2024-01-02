@@ -192,6 +192,7 @@
         <Setter Property="StrokeThickness" Value="1"/>
         <Setter Property="BackgroundColor" Value="{StaticResource CardBackground}" />
         <Setter Property="Margin" Value="0,20,0,0" />
+        <Setter Property="WidthRequest" Value="360" />
         <Setter Property="StrokeShape">
             <Setter.Value>
                 <RoundRectangle CornerRadius="20"/>

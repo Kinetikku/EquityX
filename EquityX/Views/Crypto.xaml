@@ -4,9 +4,13 @@
              x:Class="EquityX.Pages.Crypto"
              Title="Crypto">
     <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <Border WidthRequest="360" HorizontalOptions="Center" Style="{StaticResource InputBorderBlue}">
+            <HorizontalStackLayout>
+                <Image Margin="15, 0, 0, 0" Source="search_icon.png" Aspect="AspectFit" HeightRequest="20" />
+                <Entry Placeholder="Search for Cryptos here..." Keyboard="Plain" Style="{StaticResource EntryFormsWhite }"/>
+            </HorizontalStackLayout>
+        </Border>
+        <ContentView x:Name="LiveChart"></ContentView>
+        <ContentView x:Name="CryptoOptionsContainer"></ContentView>
     </VerticalStackLayout>
 </ContentPage>

@@ -1,37 +1,107 @@
 [
-    {
-        "LogoCode": "123456",
-        "CompanyName": "TechNova",
-        "Shares": 150,
-        "SharePrice": 32.45,
-        "GainPercentage": 5.2
-    },
-    {
-        "LogoCode": "234567",
-        "CompanyName": "QuantumCore",
-        "Shares": 200,
-        "SharePrice": 47.30,
-        "GainPercentage": 3.8
-    },
-    {
-        "LogoCode": "345678",
-        "CompanyName": "NeuralNet Solutions",
-        "Shares": 120,
-        "SharePrice": 29.15,
-        "GainPercentage": 6.5
-    },
-    {
-      "LogoCode": "456789",
-      "CompanyName": "Orbitrix",
-      "Shares": 180,
-      "SharePrice": 53.75,
-      "GainPercentage": 4.7
-    },
-    {
-      "LogoCode": "466819",
-      "CompanyName": "Apple",
-      "Shares": 20,
-      "SharePrice": 183.45,
-      "GainPercentage": 9.37
-    }
+  {
+    "Type": "Crypto",
+    "LogoCode": "567890",
+    "CompanyName": "BitPulse",
+    "CoinPrice": 22.50,
+    "GainPercentage": 7.1
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "678901",
+    "CompanyName": "EtherSpark",
+    "CoinPrice": 34.10,
+    "GainPercentage": 8.3
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "789012",
+    "CompanyName": "QuantumCoin",
+    "CoinPrice": 15.75,
+    "GainPercentage": 6.2
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "890123",
+    "CompanyName": "CryptoSphere",
+    "CoinPrice": 48.20,
+    "GainPercentage": 9.1
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "901234",
+    "CompanyName": "GalaxyToken",
+    "CoinPrice": 27.65,
+    "GainPercentage": 5.8
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "123890",
+    "CompanyName": "BlockChainium",
+    "CoinPrice": 33.80,
+    "GainPercentage": 7.6
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "234901",
+    "CompanyName": "DigitalVault",
+    "CoinPrice": 17.45,
+    "GainPercentage": 8.2
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "345012",
+    "CompanyName": "NexaNode",
+    "CoinPrice": 21.30,
+    "GainPercentage": 4.9
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "456123",
+    "CompanyName": "VertexCoin",
+    "CoinPrice": 29.75,
+    "GainPercentage": 6.7
+  },
+  {
+    "Type": "Crypto",
+    "LogoCode": "567234",
+    "CompanyName": "OmegaChain",
+    "CoinPrice": 24.55,
+    "GainPercentage": 7.9
+  },
+  {
+    "Type": "Stock",
+    "LogoCode": "678345",
+    "CompanyName": "GreenTech Innovations",
+    "SharePrice": 38.40,
+    "GainPercentage": 5.4
+  },
+  {
+    "Type": "Stock",
+    "LogoCode": "789456",
+    "CompanyName": "FutureVision Tech",
+    "SharePrice": 44.20,
+    "GainPercentage": 6.1
+  },
+  {
+    "Type": "Stock",
+    "LogoCode": "890567",
+    "CompanyName": "SkyNet Technologies",
+    "SharePrice": 30.90,
+    "GainPercentage": 4.6
+  },
+  {
+    "Type": "Stock",
+    "LogoCode": "901678",
+    "CompanyName": "SolarFlare Energy",
+    "SharePrice": 51.35,
+    "GainPercentage": 7.2
+  },
+  {
+    "Type": "Stock",
+    "LogoCode": "012789",
+    "CompanyName": "Starlight Electronics",
+    "SharePrice": 39.80,
+    "GainPercentage": 6.9
+  }
 ]

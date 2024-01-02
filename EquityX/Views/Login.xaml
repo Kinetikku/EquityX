@@ -19,10 +19,10 @@
             <BoxView Grid.Column="1" HeightRequest="1" BackgroundColor="White" VerticalOptions="Center" />
         </Grid>
         <Border Style="{StaticResource InputBorder}" Margin="0, 80, 0, 8">
-            <Entry Style="{StaticResource EntryForms}"  x:Name="Email" Text="{Binding EmailLogin}" Placeholder="Email" MaxLength="40" Keyboard="Email" ReturnType="Next"/>
+            <Entry Style="{StaticResource EntryForms}"  x:Name="Email" Text="{Binding EmailLogin}" Placeholder="Email" MaxLength="40" Keyboard="Email" ReturnType="Next" />
         </Border>
         <Border Style="{StaticResource InputBorder}" Margin="0, 0, 0, 8">
-            <Entry Style="{StaticResource EntryForms}" x:Name="Password" Text="{Binding PasswordLogin}" Placeholder="Password" MaxLength="40" IsPassword="True" Keyboard="Plain"/>
+            <Entry Style="{StaticResource EntryForms}" x:Name="Password" Text="{Binding PasswordLogin}" Placeholder="Password" MaxLength="40" IsPassword="True" Keyboard="Plain" />
         </Border>
         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
             <Border Style="{StaticResource HalfBorder}" Margin="0, 0, 4, 0">

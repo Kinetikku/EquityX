@@ -1,15 +1,24 @@
+using EquityX.ViewModels;
+
 namespace EquityX.Pages;
 
 public partial class Landing : ContentPage
 {
-	public Landing()
+    private LandingViewModel _viewModel;
+    public Landing()
 	{
 		InitializeComponent();
+        _viewModel = new LandingViewModel();
+        BindingContext = _viewModel;
+    }
 
-		ListView listView = new ListView();
-	}
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        await _viewModel.LoadTotalAssetsValue();
+    }
 
-	public void Add_Money_Clicked(Object sender, EventArgs e)
+    public void Add_Money_Clicked(Object sender, EventArgs e)
 	{
 		Navigation.PushAsync(new EquityX.Pages.AddMoney());
     }

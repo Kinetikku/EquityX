@@ -16,8 +16,11 @@ public partial class BuyAssets : ContentPage
 
     private UserDataViewModel viewModel;
     private StockDataViewModel stockModel;
+    private CryptoDataViewModel cryptoModel;
 
     private StockData _stockData;
+    private CryptoData _cryptoData;
+
     public BuyAssets(StockData stockData)
 	{
 		InitializeComponent();
@@ -64,7 +67,52 @@ public partial class BuyAssets : ContentPage
         // Add the Grid to the ContentPage placeholder section
         calculatorPlaceholder.Content = grid;
     }
+    public BuyAssets(CryptoData cryptoData)
+    {
+        InitializeComponent();
 
+        cryptoModel = new CryptoDataViewModel();
+        viewModel = new UserDataViewModel();
+        this.BindingContext = viewModel;
+
+        _cryptoData = cryptoData;
+
+        // Create a Grid
+        var grid = new Grid
+        {
+            RowSpacing = 5,
+            ColumnSpacing = 5
+        };
+
+        // Define rows
+        for (int i = 0; i < 4; i++)
+        {
+            grid.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+        }
+
+        // Define columns
+        for (int i = 0; i < 3; i++)
+        {
+            grid.ColumnDefinitions.Add(new ColumnDefinition { Width = 70 });
+        }
+
+        // Add buttons
+        AddButton(grid, "7", 0, 0);
+        AddButton(grid, "8", 0, 1);
+        AddButton(grid, "9", 0, 2);
+        AddButton(grid, "4", 1, 0);
+        AddButton(grid, "5", 1, 1);
+        AddButton(grid, "6", 1, 2);
+        AddButton(grid, "1", 2, 0);
+        AddButton(grid, "2", 2, 1);
+        AddButton(grid, "3", 2, 2);
+        AddButton(grid, "Clear", 3, 0);
+        AddButton(grid, "0", 3, 1);
+        AddButton(grid, "Del", 3, 2);
+
+        // Add the Grid to the ContentPage placeholder section
+        calculatorPlaceholder.Content = grid;
+    }
     private void AddButton(Grid grid, string text, int row, int column)
     {
         var button = new Button
@@ -119,19 +167,17 @@ public partial class BuyAssets : ContentPage
         }
     }
 
-
     void OnSliderChange(object sender, ValueChangedEventArgs args)
     {
-        double stockValue = _stockData.SharePrice;
-
+        double assetValue = (_stockData != null) ? _stockData.SharePrice : _cryptoData.CoinPrice;
         spendAmount = Math.Round(args.NewValue, 2);
 
-        double availableStock = (spendAmount / stockValue);
-        stockAmountBought  = (int)Math.Round(availableStock, 0);
-        
+        double availableAssets = (spendAmount / assetValue);
+        stockAmountBought = (int)Math.Round(availableAssets, 0);
 
-        ShareStockAmount.Text = stockAmountBought.ToString() + " Shares";
-        PriceAmount.Text = args.NewValue.ToString("C");
+        string assetType = (_stockData != null) ? "Shares" : "Coins";
+        ShareStockAmount.Text = $"{stockAmountBought} {assetType}";
+        PriceAmount.Text = spendAmount.ToString("C");
     }
 
     private void ClearButtonClicked(object sender, EventArgs e)
@@ -195,11 +241,11 @@ public partial class BuyAssets : ContentPage
     private async void ConfirmButtonClicked(object sender, EventArgs e)
     {
         if (_stockData != null)
-        {
-            // Update user's balance after sale
             await stockModel.AddStock(_stockData.LogoCode, _stockData.CompanyName, stockAmountBought, _stockData.SharePrice, _stockData.GainPercentage, currentEmail);
-            await viewModel.WithdrawBalance(spendAmount);
-            AdjustSliderSettings();
-        }
+        else if (_cryptoData != null)
+            await cryptoModel.AddCrypto(_cryptoData.LogoCode, _cryptoData.CompanyName, stockAmountBought, _cryptoData.CoinPrice, _cryptoData.GainPercentage, currentEmail);
+
+        await viewModel.WithdrawBalance(spendAmount);
+        AdjustSliderSettings();
     }
 }

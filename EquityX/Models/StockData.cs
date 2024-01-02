@@ -5,6 +5,7 @@ namespace EquityX.Models
     [Table("StockData")]
     public class StockData
     {
+        public string Type { get; set; }
         [PrimaryKey]
         public string LogoCode { get; set; }
         public string CompanyName { get; set; }
@@ -12,5 +13,6 @@ namespace EquityX.Models
         public double SharePrice { get; set; }
         public double GainPercentage { get; set; }
         public string Email { get; set; }
+        public string Image {  get; set; }
     }
 }

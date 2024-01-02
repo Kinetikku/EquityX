@@ -1,3 +1,4 @@
+using EquityX.Services;
 using EquityX.ViewModel;
 
 namespace EquityX.Pages;
@@ -8,9 +9,23 @@ public partial class Login : ContentPage
     public Login()
     {
         InitializeComponent();
+
+        // Get API Data
+        WebDataManager apiData = new WebDataManager();
+
+        apiData.GetQuote();
+
         viewModel = new UserDataViewModel();
         this.BindingContext = viewModel;
     }
+
+//    private void Entry_Completed(object sender, EventArgs e)
+//    {
+//#if ANDROID
+//    if(Platform.CurrentActivity.CurrentFocus != null)
+//        Platform.CurrentActivity.HideKeyboard(Platoform.CurrentActivity.CurrentFocus);
+//#endif
+//    }
 
     public async void GoToMain(Object sender, EventArgs e)
     {
